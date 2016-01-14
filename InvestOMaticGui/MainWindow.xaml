@@ -1,7 +1,7 @@
 ﻿<Window x:Class="InvestOMaticGui.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Invest-O-Matic" Height="350" Width="550">
+        Title="Invest-O-Matic Mark 0" Height="350" Width="550">
     <Window.Resources>
         <AlternationConverter x:Key="RecommendedPortfolioBackgrounds">
             <SolidColorBrush>LightBlue</SolidColorBrush>
