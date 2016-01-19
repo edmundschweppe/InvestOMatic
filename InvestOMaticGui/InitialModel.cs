@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace InvestOMaticGui.Model
 {
 
-    public class InitialModel : INotifyPropertyChanged
+    public class InitialModel : ObservableObject
     {
         private Portfolio _original = null;
         private Portfolio _recommended = null;
@@ -102,18 +101,6 @@ namespace InvestOMaticGui.Model
                     RaisePropertyChanged();
                 }
 
-            }
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            // take a copy to prevent thread issues
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }
