@@ -1,8 +1,8 @@
 ﻿<Window x:Class="InvestOMaticGui.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:InvestOMaticGui.Model"
-        Title="Invest-O-Matic Mark 1" Height="350" Width="550">
+        xmlns:local="clr-namespace:InvestOMaticModel;assembly=InvestOMaticModel"
+        Title="Invest-O-Matic Mark 1.1" Height="350" Width="550">
     <Window.DataContext>
         <local:InitialModel/>
     </Window.DataContext>

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InvestOMaticGui.Model
+namespace InvestOMaticModel
 {
     public class Portfolio : ObservableObject
     {
