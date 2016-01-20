@@ -17,10 +17,12 @@ namespace InvestOMaticModel
         {
             OriginalPortfolio = new Portfolio
             {
-                Positions = new ObservableCollection<Position>{
-                    new Position {
+                Positions = new ObservableCollection<Position>
+                {
+                    new Position 
+                    {
                         SecurityIdentifier = "CASH",
-                        Amount = "$100,000.00"
+                        Amount = 100000.00
                     }
                 }
             };
@@ -34,7 +36,7 @@ namespace InvestOMaticModel
                         Issuer = "DELMARVA POWER AND LIGHT",
                         Coupon="4.00",
                         Maturity="06/01/2042",
-                        Amount="$20,000.00"
+                        Amount=20000.00
                     },
                     new Position 
                     {
@@ -42,7 +44,7 @@ namespace InvestOMaticModel
                         Issuer = "GENERAL DYNAMICS CORP",
                         Coupon="3.60",
                         Maturity="11/15/2042",
-                        Amount="$20,000.00"
+                        Amount=20000.00
                     },
                     new Position 
                     {
@@ -50,7 +52,7 @@ namespace InvestOMaticModel
                         Issuer = "MORGAN STANLEY DEAN WITTER",
                         Coupon="5.75",
                         Maturity="11/15/2038",
-                        Amount="$20,000.00"
+                        Amount=20000.00
                     },
                     new Position 
                     {
@@ -58,7 +60,7 @@ namespace InvestOMaticModel
                         Issuer = "VIRGINIA ELECTRIC POWER",
                         Coupon="8.875",
                         Maturity="11/15/2038",
-                        Amount="$20,000.00"
+                        Amount=20000.00
                     },
                     new Position 
                     {
@@ -66,7 +68,7 @@ namespace InvestOMaticModel
                         Issuer = "WAL-MART STORES",
                         Coupon="6.20",
                         Maturity="04/30/2038",
-                        Amount="$20,000.00"
+                        Amount=20000.00
                     }
                 }
             };
@@ -102,6 +104,12 @@ namespace InvestOMaticModel
                 }
 
             }
+        }
+
+        public void Rebalance()
+        {
+            double newAmount = OriginalPortfolio.TotalValue;
+            RecommendedPortfolio.Recalculate(newAmount);
         }
     }
 }

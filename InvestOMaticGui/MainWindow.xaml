@@ -25,20 +25,6 @@
                             Path=(ItemsControl.AlternationIndex),
                             Converter={StaticResource RecommendedPortfolioForegrounds}}" />
         </Style>
-        <DataTemplate x:Key="SummaryPositionTemplate">
-            <StackPanel Orientation="Horizontal" MinWidth="200">
-                <TextBlock Text="{Binding SecurityIdentifier}"
-                           FontSize="14"
-                           FontWeight="Bold"
-                           TextAlignment="Left"
-                           MinWidth="100"/>
-                <TextBlock Text="{Binding Amount}"
-                           FontSize="14"
-                           FontWeight="Normal"
-                           TextAlignment="Right"
-                           MinWidth="100"/>
-            </StackPanel>
-        </DataTemplate>
         <DataTemplate x:Key="DetailPositionTemplate">
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" MinWidth="200">
@@ -47,7 +33,7 @@
                            FontWeight="Bold"
                            TextAlignment="Left"
                            MinWidth="100"/>
-                    <TextBlock Text="{Binding Amount}"
+                    <TextBlock Text="{Binding Amount, StringFormat='C'}"
                            FontSize="14"
                            FontWeight="Normal"
                            TextAlignment="Right"
@@ -83,16 +69,35 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0"
                     Orientation="Vertical"
-                    HorizontalAlignment="Left">
-            <TextBlock>Original Portfolio</TextBlock>
-            <ListBox ItemsSource="{Binding OriginalPortfolio.Positions}"
-                     ItemTemplate="{StaticResource SummaryPositionTemplate}"/>
+                    HorizontalAlignment="Left"
+                    DataContext="{Binding OriginalPortfolio}">
+            <TextBlock HorizontalAlignment="Center">Original Portfolio</TextBlock>
+            <TextBlock HorizontalAlignment="Center">(total value: <TextBlock Text="{Binding TotalValue, StringFormat='C'}" />)</TextBlock>
+            <DataGrid AutoGenerateColumns="False" 
+                      SelectionMode="Single"
+                      SelectionUnit="Cell"
+                      CanUserAddRows="False"
+                      ItemsSource="{Binding Positions}" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Security" 
+                                        FontWeight="Bold"
+                                        IsReadOnly="True"
+                                        Binding="{Binding SecurityIdentifier}" />
+                    <DataGridTextColumn Header="Amount" 
+                                        Binding="{Binding Amount, StringFormat='C', Mode=TwoWay}" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Name="btnRecalc" 
+                    Content="Recalculate" 
+                    Width="Auto" Click="btnRecalc_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1"
                     Orientation="Vertical"
-                    HorizontalAlignment="Left">
-            <TextBlock>Recommended Portfolio</TextBlock>
-            <ListBox ItemsSource="{Binding RecommendedPortfolio.Positions}"
+                    HorizontalAlignment="Left"
+                    DataContext="{Binding RecommendedPortfolio}">
+            <TextBlock HorizontalAlignment="Center">Recommended Portfolio</TextBlock>
+            <TextBlock HorizontalAlignment="Center">(total value: <TextBlock Text="{Binding TotalValue, StringFormat='C'}" />)</TextBlock>
+            <ListBox ItemsSource="{Binding Positions}"
                      ItemTemplate="{StaticResource DetailPositionTemplate}"
                      AlternationCount="2"
                      ItemContainerStyle="{StaticResource RecommendedPortfolioAlternating}"/>

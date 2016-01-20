@@ -13,7 +13,7 @@ namespace InvestOMaticModel
         private string _issuer;
         private string _coupon;
         private string _maturity;
-        private string _amount;
+        private double _amount;
 
         public string SecurityIdentifier 
         {
@@ -76,7 +76,7 @@ namespace InvestOMaticModel
             }
         }
 
-        public string Amount
+        public double Amount
         {
             get
             {

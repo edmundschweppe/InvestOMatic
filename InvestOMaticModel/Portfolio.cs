@@ -22,9 +22,32 @@ namespace InvestOMaticModel
                 if (_positions != value)
                 {
                     _positions = value;
+                    //_positions.CollectionChanged += _positions_CollectionChanged;
                     RaisePropertyChanged();
                 }
             }
+        }
+
+        //void _positions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        //{
+        //    RaisePropertyChanged("TotalValue");
+        //}
+
+        public double TotalValue
+        {
+            get
+            {
+                return Positions.Sum(p => p.Amount);
+            }
+        }
+        public void Recalculate(double newValue)
+        {
+            double amountPerPortfolio = newValue / Positions.Count();
+            foreach(var position in Positions)
+            {
+                position.Amount = amountPerPortfolio;
+            }
+            RaisePropertyChanged("TotalValue");
         }
     }
 }
