@@ -69,15 +69,14 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0"
                     Orientation="Vertical"
-                    HorizontalAlignment="Left"
-                    DataContext="{Binding OriginalPortfolio}">
+                    HorizontalAlignment="Left">
             <TextBlock HorizontalAlignment="Center">Original Portfolio</TextBlock>
-            <TextBlock HorizontalAlignment="Center">(total value: <TextBlock Text="{Binding TotalValue, StringFormat='C'}" />)</TextBlock>
+            <TextBlock HorizontalAlignment="Center">(total value: <TextBlock Text="{Binding OriginalPortfolio.TotalValue, StringFormat='C'}" />)</TextBlock>
             <DataGrid AutoGenerateColumns="False" 
                       SelectionMode="Single"
                       SelectionUnit="Cell"
                       CanUserAddRows="False"
-                      ItemsSource="{Binding Positions}" >
+                      ItemsSource="{Binding OriginalPortfolio.Positions}" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Security" 
                                         FontWeight="Bold"
@@ -89,7 +88,8 @@
             </DataGrid>
             <Button Name="btnRecalc" 
                     Content="Recalculate" 
-                    Width="Auto" Click="btnRecalc_Click"/>
+                    Width="Auto" 
+                    Command="{Binding RebalanceCommand}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1"
                     Orientation="Vertical"

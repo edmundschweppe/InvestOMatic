@@ -5,14 +5,43 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace InvestOMaticModel
 {
-
     public class InitialModel : ObservableObject
     {
+        #region ICommand classes
+        class RebalanceCmd : ICommand
+        {
+            private readonly InitialModel _parent;
+            public RebalanceCmd(InitialModel parent)
+            {
+                _parent = parent;
+            }
+            public bool CanExecute(object parameter)
+            {
+                return (_parent.OriginalPortfolio.TotalValue > 0.0);
+            }
+            public event EventHandler CanExecuteChanged
+            {
+                add { CommandManager.RequerySuggested += value; }
+                remove { CommandManager.RequerySuggested -= value; }
+            }
+            public void Execute(object parameter)
+            {
+                _parent.DoRebalance();
+            }
+        }
+        #endregion ICommand classes
+
+        #region Member variables
         private Portfolio _original = null;
         private Portfolio _recommended = null;
+        private ICommand _rebalance = null;
+        #endregion Member variables
+
+        #region Constructors
         public InitialModel()
         {
             OriginalPortfolio = new Portfolio
@@ -73,6 +102,9 @@ namespace InvestOMaticModel
                 }
             };
         }
+        #endregion Constructors
+
+        #region Public properties
         public Portfolio OriginalPortfolio
         {
             get
@@ -105,11 +137,26 @@ namespace InvestOMaticModel
 
             }
         }
+        #endregion Public properties
 
-        public void Rebalance()
+        #region Commands
+        public ICommand RebalanceCommand
+        {
+            get
+            {
+                if (_rebalance == null)
+                {
+                    _rebalance = new RebalanceCmd(this);
+                }
+                return _rebalance;
+            }
+        }
+
+        internal void DoRebalance()
         {
             double newAmount = OriginalPortfolio.TotalValue;
             RecommendedPortfolio.Recalculate(newAmount);
         }
+        #endregion Commands
     }
 }

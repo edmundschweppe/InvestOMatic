@@ -24,11 +24,5 @@ namespace InvestOMaticGui
         {
             InitializeComponent();
         }
-
-        private void btnRecalc_Click(object sender, RoutedEventArgs e)
-        {
-            var model = this.DataContext as InvestOMaticModel.InitialModel;
-            model.Rebalance();
-        }
     }
 }
