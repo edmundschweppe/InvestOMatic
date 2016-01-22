@@ -11,30 +11,6 @@ namespace InvestOMaticModel
 {
     public class InitialModel : ObservableObject
     {
-        #region ICommand classes
-        class RebalanceCmd : ICommand
-        {
-            private readonly InitialModel _parent;
-            public RebalanceCmd(InitialModel parent)
-            {
-                _parent = parent;
-            }
-            public bool CanExecute(object parameter)
-            {
-                return (_parent.OriginalPortfolio.TotalValue > 0.0);
-            }
-            public event EventHandler CanExecuteChanged
-            {
-                add { CommandManager.RequerySuggested += value; }
-                remove { CommandManager.RequerySuggested -= value; }
-            }
-            public void Execute(object parameter)
-            {
-                _parent.DoRebalance();
-            }
-        }
-        #endregion ICommand classes
-
         #region Member variables
         private Portfolio _original = null;
         private Portfolio _recommended = null;
@@ -146,13 +122,17 @@ namespace InvestOMaticModel
             {
                 if (_rebalance == null)
                 {
-                    _rebalance = new RebalanceCmd(this);
+                    _rebalance = new RelayCommand(DoRebalance, CanRebalance);
                 }
                 return _rebalance;
             }
         }
 
-        internal void DoRebalance()
+        private bool CanRebalance()
+        {
+            return (OriginalPortfolio.TotalValue > 0.0);
+        }
+        private void DoRebalance()
         {
             double newAmount = OriginalPortfolio.TotalValue;
             RecommendedPortfolio.Recalculate(newAmount);
