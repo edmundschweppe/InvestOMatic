@@ -128,11 +128,11 @@ namespace InvestOMaticModel
             }
         }
 
-        private bool CanRebalance()
+        public bool CanRebalance()
         {
             return (OriginalPortfolio.TotalValue > 0.0);
         }
-        private void DoRebalance()
+        public void DoRebalance()
         {
             double newAmount = OriginalPortfolio.TotalValue;
             RecommendedPortfolio.Recalculate(newAmount);
