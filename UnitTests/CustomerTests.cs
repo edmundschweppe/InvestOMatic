@@ -11,8 +11,23 @@ using System.ComponentModel;
 namespace UnitTests
 {
     [TestClass]
-    public class InitialModelTests
+    public class CustomerTests
     {
+        [TestMethod]
+        public void FullName()
+        {
+            string firstName = "George";
+            string lastName = "Jetson";
+            string expected = firstName + " " + lastName;
+
+            Customer target = new Customer
+            {
+                FirstName = firstName,
+                LastName = lastName
+            };
+            Assert.AreEqual(expected, target.FullName, "checking FullName");
+        }
+
         [TestMethod]
         public void CannotRebalanceWithZeroOriginalPositionValue()
         {
@@ -33,7 +48,7 @@ namespace UnitTests
                     }
                 }
             };
-            InitialModel target = new InitialModel
+            Customer target = new Customer
             {
                 OriginalPortfolio = orig,
                 RecommendedPortfolio = recommended
@@ -64,7 +79,7 @@ namespace UnitTests
                     }
                 }
             };
-            InitialModel target = new InitialModel
+            Customer target = new Customer
             {
                 OriginalPortfolio = orig,
                 RecommendedPortfolio = recommended
@@ -97,7 +112,7 @@ namespace UnitTests
                     }
                 }
             };
-            InitialModel target = new InitialModel
+            Customer target = new Customer
             {
                 OriginalPortfolio = orig,
                 RecommendedPortfolio = recommended

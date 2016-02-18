@@ -9,17 +9,21 @@ using System.Windows.Input;
 
 namespace InvestOMaticModel
 {
-    public class InitialModel : ObservableObject
+    public class Customer : ObservableObject
     {
         #region Member variables
+        private string _firstName = String.Empty;
+        private string _lastName = String.Empty;
         private Portfolio _original = null;
         private Portfolio _recommended = null;
         private ICommand _rebalance = null;
         #endregion Member variables
 
         #region Constructors
-        public InitialModel()
+        public Customer()
         {
+            FirstName = "Joe";
+            LastName = "Schmoe";
             OriginalPortfolio = new Portfolio
             {
                 Positions = new ObservableCollection<Position>
@@ -81,6 +85,44 @@ namespace InvestOMaticModel
         #endregion Constructors
 
         #region Public properties
+        public string FirstName
+        {
+            get
+            {
+                return _firstName;
+            }
+            set
+            {
+                if (_firstName != value)
+                {
+                    _firstName = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("FullName");
+                }
+            }
+        }
+        public string LastName
+        {
+            get
+            {
+                return _lastName;
+            }
+            set
+            {
+                if (_lastName != value)
+                {
+                    _lastName = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged("FullName");
+                }
+            }
+        }
+
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
+
         public Portfolio OriginalPortfolio
         {
             get

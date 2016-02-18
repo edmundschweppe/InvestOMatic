@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InitialModel.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="Customers.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Portfolio.cs" />
     <Compile Include="Position.cs" />
